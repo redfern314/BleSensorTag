@@ -18,6 +18,7 @@ public class TiSensors {
         final TiPressureSensor pressureSensor = new TiPressureSensor();
         final TiTemperatureSensor temperatureSensor = new TiTemperatureSensor();
         final TiTestSensor testSensor = new TiTestSensor();
+        final TiLedController ledController = new TiLedController();
 
         SENSORS.put(accelerometerSensor.getServiceUUID(), accelerometerSensor);
         SENSORS.put(gyroscopeSensor.getServiceUUID(), gyroscopeSensor);
@@ -27,6 +28,7 @@ public class TiSensors {
         SENSORS.put(pressureSensor.getServiceUUID(), pressureSensor);
         SENSORS.put(temperatureSensor.getServiceUUID(), temperatureSensor);
         SENSORS.put(testSensor.getServiceUUID(), testSensor);
+        SENSORS.put(ledController.getServiceUUID(), ledController);
     }
 
     public static TiSensor<?> getSensor(String uuid) {
