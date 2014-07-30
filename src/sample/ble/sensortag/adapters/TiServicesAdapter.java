@@ -140,19 +140,6 @@ public class TiServicesAdapter extends BaseExpandableListAdapter {
             holder.seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if (serviceListener == null || !fromUser)
-                        return;
-
-                    final TiSensor<?> sensor = TiSensors.getSensor(holder.service.getUuid().toString());
-                    if (sensor == null)
-                        return;
-
-                    if (sensor instanceof TiPeriodicalSensor) {
-                        final TiPeriodicalSensor periodicalSensor = (TiPeriodicalSensor) sensor;
-                        periodicalSensor.setPeriod(progress + periodicalSensor.getMinPeriod());
-
-                        serviceListener.onServiceUpdated(holder.service);
-                    }
                 }
 
                 @Override
@@ -161,6 +148,19 @@ public class TiServicesAdapter extends BaseExpandableListAdapter {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    if (serviceListener == null)
+                        return;
+
+                    final TiSensor<?> sensor = TiSensors.getSensor(holder.service.getUuid().toString());
+                    if (sensor == null)
+                        return;
+
+                    if (sensor instanceof TiPeriodicalSensor) {
+                        final TiPeriodicalSensor periodicalSensor = (TiPeriodicalSensor) sensor;
+                        periodicalSensor.setPeriod(seekBar.getProgress() + periodicalSensor.getMinPeriod());
+
+                        serviceListener.onServiceUpdated(holder.service);
+                    }
                 }
             });
 
